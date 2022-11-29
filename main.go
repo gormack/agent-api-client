@@ -6,12 +6,16 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
 const ApiBaseUri = "http://localhost:8000"
 
 func main() {
-	resp, err := http.Get(ApiBaseUri + "/api")
+	httpClient := http.Client{
+		Timeout: 5 * time.Second,
+	}
+	resp, err := httpClient.Get(ApiBaseUri + "/api")
 	if err != nil {
 		log.Fatalln(err)
 	}
